@@ -328,9 +328,9 @@ void CN3UIString::SetStartLine(int iLine)
 		iEndLine = m_iLineCount;
 		bMoreLine = false;
 	}
-	int i, iCC, iSize;
+	int iCC, iSize;
 	std::string strNew;
-	for (i=m_iStartLine; i<iEndLine-1; ++i)
+	for (int i=m_iStartLine; i<iEndLine-1; ++i)
 	{
 		iCC = m_NewLineIndices[i+1] - m_NewLineIndices[i];
 		if (iCC>0)

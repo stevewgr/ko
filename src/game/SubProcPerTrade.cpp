@@ -891,7 +891,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeOtherAdd(int iItemID, int iCount, int i
 			if ( !bFound )
 			{
 				// 인벤토리 빈슬롯을 찾아 들어간다..
-				for( i = 0; i < MAX_ITEM_PER_TRADE; i++ )
+				for( int i = 0; i < MAX_ITEM_PER_TRADE; i++ )
 				{
 					if ( !m_pUIPerTradeDlg->m_pPerTradeOther[i] )
 					{

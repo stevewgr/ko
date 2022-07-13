@@ -775,7 +775,6 @@ bool CN3DExp::ProcessName(INode* pNode, CN3BaseFileAccess* pBase)
 
 bool CN3DExp::ProcessChr(INode *pNode)
 {
-	int i, nCC;
 	INode* pNodeRootJoint = NULL; // 루트 조인트를 찾아야 한다..
 
 	Control* pCtrl = pNode->GetTMController();
@@ -786,7 +785,7 @@ bool CN3DExp::ProcessChr(INode *pNode)
 	else
 	{	// pNode가 바이패드면 자식중에 루트조인트를 찾는다.
 
-		nCC = pNode->NumberOfChildren();
+		int nCC = pNode->NumberOfChildren();
 		for(int i = 0; i < nCC; i++) 
 		{
 			INode* pNodeTmp = pNode->GetChildNode(i);
@@ -829,7 +828,7 @@ bool CN3DExp::ProcessChr(INode *pNode)
 	pChr->m_szName = "Temp";
 	pChr->FileNameSet(std::string("Chr\\Temp.n3Chr"));
 	pChr->PartAlloc(64); // 충분하게 Part Data 할당.. save할때 불필요한 데이터는 제거된다.
-	for(i = 0; i < 64; i++)
+	for(int i = 0; i < 64; i++)
 	{
 		CN3CPart* pPDAdd = pChr->Part(i);
 		CN3CPartSkins* pSkinAdd = new CN3CPartSkins();
@@ -873,8 +872,8 @@ bool CN3DExp::ProcessChr(INode *pNode)
 			{
 				std::string strM1(pNodeTmp->GetName());
 				std::string strM2;
-				nCC = pMG->NumberOfChildren();
-				for(i = 0; i < nCC; i++)
+				int nCC = pMG->NumberOfChildren();
+				for(int i = 0; i < nCC; i++)
 				{
 					INode* pCN = pMG->GetChildNode(i);
 					__ASSERT(pCN, "null pointer : no child");
@@ -889,8 +888,8 @@ bool CN3DExp::ProcessChr(INode *pNode)
 				// part
 				std::string strM1(pMG->GetName());
 				std::string strM2;
-				nCC = pCG->NumberOfChildren();
-				for(i = 0; i < nCC; i++)
+				int nCC = pCG->NumberOfChildren();
+				for(int i = 0; i < nCC; i++)
 				{
 					INode* pCN = pCG->GetChildNode(i);
 					__ASSERT(pCN, "null pointer : no child");
@@ -902,8 +901,8 @@ bool CN3DExp::ProcessChr(INode *pNode)
 
 				// lod
 				strM1 = pNodeTmp->GetName();
-				nCC = pMG->NumberOfChildren();
-				for(i = 0; i < nCC; i++)
+				int nCC = pMG->NumberOfChildren();
+				for(int i = 0; i < nCC; i++)
 				{
 					INode* pCN = pMG->GetChildNode(i);
 					__ASSERT(pCN, "null pointer : no child");
@@ -1120,7 +1119,7 @@ bool CN3DExp::ProcessTransform(INode* pNode, CN3Transform* pTransform, bool bLoc
 
 	// 키값 정리..
 	CN3AnimKey* pKey[3] = { &(pTransform->m_KeyPos), &(pTransform->m_KeyRot), &(pTransform->m_KeyScale) };
-	for(i = 0; i < 3; i++)
+	for(int i = 0; i < 3; i++)
 	{
 		nKC = pKey[i]->Count();
 		
@@ -1402,7 +1401,7 @@ bool CN3DExp::ProcessIMesh(INode *pNode, CN3IMesh* pIMesh)
 			pvDest1[i].y = ptTmp.z; // * 0.0254f;
 			pvDest1[i].z = ptTmp.y; // * 0.0254f; // y 와 z 를 바꾼다..
 		}
-		for(i = 0; i < nUVC; i++)
+		for(int i = 0; i < nUVC; i++)
 		{
 			pIMesh->UVSet(i, pmMesh->tVerts[i].x, 1.0f - pmMesh->tVerts[i].y); // 일단 텍스처 매핑을 기록해 둔다..
 		}

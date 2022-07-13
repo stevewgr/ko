@@ -121,7 +121,7 @@ void C3DMap::SetRegion()
 		m_ppRegion[i] = new CRegion[m_nZRegion];
 	}
 
-	for( i=0; i<m_nVMeshCount; i++) {
+	for(int i=0; i<m_nVMeshCount; i++) {
 		center = m_pVMesh[i].Center();
 		dimx = (int)(center.x / VIEW_DIST);
 		dimz = (int)(center.z / VIEW_DIST);

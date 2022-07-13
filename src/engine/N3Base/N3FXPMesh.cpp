@@ -189,8 +189,7 @@ void CN3FXPMesh::Render()
 	{
 		int iPC = m_iMaxNumIndices / 3;
 
-		int iLC = iPC / iPCToRender;
-		int i;
+		int i, iLC = iPC / iPCToRender;
 		for (i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, m_iMaxNumVertices, iPCToRender, m_pIndices + i*iPCToRender*3, D3DFMT_INDEX16, m_pColorVertices, sizeof(__VertexXyzColorT1));

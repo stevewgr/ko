@@ -104,7 +104,7 @@ CGameEng::~CGameEng()
 
 /*	it_Light itLgt = m_Lights.begin();
 	iSize = m_Lights.size();
-	for(i = 0; i < iSize; i++, itLgt++)
+	for(int i = 0; i < iSize; i++, itLgt++)
 	{
 		delete *itLgt; 
 	}
@@ -112,7 +112,7 @@ CGameEng::~CGameEng()
 
 	itLgt = m_LightsBackup.begin();
 	iSize = m_LightsBackup.size();
-	for(i = 0; i < iSize; i++, itLgt++)
+	for(int i = 0; i < iSize; i++, itLgt++)
 	{
 		delete *itLgt; 
 	}

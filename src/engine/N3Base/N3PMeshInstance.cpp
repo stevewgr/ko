@@ -330,8 +330,7 @@ void CN3PMeshInstance::Render()
 		int iPC = m_iNumIndices / 3;
 
 		int iLC = iPC / iPCToRender;
-		int i;
-		for (i=0; i<iLC; ++i)
+		for (int i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_iNumVertices, i*iPCToRender*3, iPCToRender);
 		}
@@ -344,8 +343,7 @@ void CN3PMeshInstance::Render()
 	{
 		int iPC = m_iNumIndices / 3;
 
-		int iLC = iPC / iPCToRender;
-		int i;
+		int i, iLC = iPC / iPCToRender;
 		for (i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, m_iNumVertices, iPCToRender, m_pIndices + i*iPCToRender*3, D3DFMT_INDEX16, m_pPMesh->m_pVertices, sizeof(__VertexT1));
@@ -379,8 +377,7 @@ void CN3PMeshInstance::RenderTwoUV()
 		int iPC = m_iNumIndices / 3;
 
 		int iLC = iPC / iPCToRender;
-		int i;
-		for (i=0; i<iLC; ++i)
+		for (int i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_iNumVertices, i*iPCToRender*3, iPCToRender);
 		}
@@ -393,8 +390,7 @@ void CN3PMeshInstance::RenderTwoUV()
 	{
 		int iPC = m_iNumIndices / 3;
 
-		int iLC = iPC / iPCToRender;
-		int i;
+		int i, iLC = iPC / iPCToRender;
 		for (i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, m_iNumVertices, iPCToRender, m_pIndices + i*iPCToRender*3, D3DFMT_INDEX16, m_pPMesh->m_pVertices2, sizeof(__VertexT2));
@@ -438,8 +434,7 @@ void CN3PMeshInstance::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER9 pIB)
 	{
 		int iPC = iCount / 3;
 		int iLC = iPC / iPCToRender;
-		int i;
-		for (i=0; i<iLC; ++i)
+		for (int i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_iNumVertices, i*iPCToRender*3, iPCToRender);
 		}
@@ -459,8 +454,7 @@ void CN3PMeshInstance::PartialRender(int iCount, WORD* pIndices)
 		int iPC = m_iNumIndices / 3;
 
 		int iLC = iPC / iPCToRender;
-		int i;
-		for (i=0; i<iLC; ++i)
+		for (int i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, m_iNumVertices, iPCToRender, m_pIndices + i*iPCToRender*3, D3DFMT_INDEX16, m_pPMesh->m_pVertices, sizeof(__VertexT1));
 		}
@@ -473,8 +467,7 @@ void CN3PMeshInstance::PartialRender(int iCount, WORD* pIndices)
 	if(iCount > 3)
 	{
 		int iPC = iCount / 3;
-		int iLC = iPC / iPCToRender;
-		int i;
+		int i, iLC = iPC / iPCToRender;
 		for (i=0; i<iLC; ++i)
 		{
 			s_lpD3DDev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, m_iNumVertices, iPCToRender, pIndices+i*iPCToRender*3, D3DFMT_INDEX16, m_pPMesh->m_pVertices, sizeof(__VertexT1));

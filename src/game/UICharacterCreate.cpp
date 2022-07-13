@@ -152,7 +152,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		dwResrcID_Races[3] = -1;
 	}
 
-	for(i = 0; i < MAX_RACE_SELECT; i++)
+	for(int i = 0; i < MAX_RACE_SELECT; i++)
 	{
 		if(szBtnIDs[i].empty()) continue;
 		m_pBtn_Races[i] = (CN3UIButton*)(this->GetChildByID(szBtnIDs[i])); __ASSERT(m_pBtn_Races[i], "NULL UI Component!!");
@@ -177,7 +177,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		dwResrcID_Classes[3] = IDS_NEWCHR_KA_PRIEST;
 	}
 
-	for(i = 0; i < MAX_CLASS_SELECT; i++)
+	for(int i = 0; i < MAX_CLASS_SELECT; i++)
 	{
 		m_pBtn_Classes[i] =	(CN3UIButton*)(this->GetChildByID(szBtns[i]));	__ASSERT(m_pBtn_Classes[i], "NULL UI Component!!");
 		m_pImg_Disable_Classes[i] = (CN3UIImage*)(this->GetChildByID(szImgs2[i]));	__ASSERT(m_pImg_Disable_Classes[i], "NULL UI Component!!");
@@ -456,7 +456,7 @@ void CUICharacterCreate::Reset()
 	}
 
 	int iStats[MAX_STATS] = { pInfoExt->iStrength, pInfoExt->iStamina, pInfoExt->iDexterity, pInfoExt->iIntelligence, pInfoExt->iMagicAttak };
-	for(i = 0; i < MAX_STATS; i++)
+	for(int i = 0; i < MAX_STATS; i++)
 	{
 		if(m_pImg_Stats[i]) m_pImg_Stats[i]->SetVisible(false);
 		if(m_pStr_Stats[i]) m_pStr_Stats[i]->SetStringAsInt(iStats[i]);
@@ -478,7 +478,7 @@ DWORD CUICharacterCreate::MouseProc(DWORD dwFlags, const POINT& ptCur, const POI
 				break;
 			}
 		}
-		for(i = 0; i < MAX_CLASS_SELECT; i++)
+		for(int i = 0; i < MAX_CLASS_SELECT; i++)
 		{
 			if(m_pBtn_Classes[i] && m_pBtn_Classes[i]->IsIn(ptCur.x, ptCur.y))
 			{
@@ -486,7 +486,7 @@ DWORD CUICharacterCreate::MouseProc(DWORD dwFlags, const POINT& ptCur, const POI
 				break;
 			}
 		}
-		for(i = 0; i < MAX_RACE_SELECT; i++)
+		for(int i = 0; i < MAX_RACE_SELECT; i++)
 		{
 			if(m_pBtn_Races[i] && m_pBtn_Races[i]->IsIn(ptCur.x, ptCur.y))
 			{
@@ -564,7 +564,7 @@ void CUICharacterCreate::UpdateRaceAndClassButtons(e_Race eRace) // 종족에 따라 
 	for(int i = 0; i < MAX_RACE_SELECT; i++)
 		if(m_pBtn_Races[i]) m_pBtn_Races[i]->SetState(eUIStateRaces[i]);
 
-	for(i = 0; i < MAX_CLASS_SELECT; i++)
+	for(int i = 0; i < MAX_CLASS_SELECT; i++)
 	{
 		if(m_pBtn_Classes[i]) m_pBtn_Classes[i]->SetState(eUIStateClasses[i]);
 	
@@ -614,7 +614,7 @@ void CUICharacterCreate::UpdateClassButtons(e_Class eClass)
 	for(int i = 0; i < MAX_CLASS_SELECT; i++)
 		if(m_pBtn_Classes[i]) m_pBtn_Classes[i]->SetState(eUIStates[i]);
 
-	for(i = 0; i < MAX_STATS; i++) 
+	for(int i = 0; i < MAX_STATS; i++) 
 		if(m_pImg_Stats[i]) m_pImg_Stats[i]->SetVisible(bVisibles[i]);
 }
  

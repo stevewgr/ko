@@ -87,7 +87,7 @@ void CUITradeList::Open(int iIDTarget)
 	__TABLE_ITEM_BASIC* pItem = NULL;
 
 	// 아이디 = 직업 코드*1000 + 001부터.. (직업 코드+1)*100 + 001까지..
-	int i, iIDFirst, iIDIndexFirst, iIDIndexLast, iDivide, iTotalCount;
+	int iIDFirst, iIDIndexFirst, iIDIndexLast, iDivide, iTotalCount;
 	iIDFirst = iIDTarget*1000+1;
 	iIDIndexFirst = CGameBase::s_pTbl_Exchange_Quest->IDToIndex(iIDFirst);
 
@@ -97,7 +97,7 @@ void CUITradeList::Open(int iIDTarget)
 	iTotalCount = CGameBase::s_pTbl_Exchange_Quest->GetSize();
 	iIDIndexLast = 0;
 
-	for( i = iIDIndexFirst; i < iTotalCount; i++ )
+	for( int i = iIDIndexFirst; i < iTotalCount; i++ )
 	{
 		pQuest = CGameBase::s_pTbl_Exchange_Quest->GetIndexedData(i);
 		if (!pQuest) 
@@ -118,7 +118,7 @@ void CUITradeList::Open(int iIDTarget)
 
 	// 메시지 박스 텍스트 표시..
 	char pszID[32];
-	for( i = iIDIndexFirst; i < iIDIndexFirst + 40; i++ )
+	for( int i = iIDIndexFirst; i < iIDIndexFirst + 40; i++ )
 	{
 		pQuest						= CGameBase::s_pTbl_Exchange_Quest->GetIndexedData(i);
 		if (pQuest)
@@ -156,8 +156,8 @@ void CUITradeList::Close()
 void CUITradeList::SetTopLine(int iTopLine)		// 맨 윗줄을 지정해준다.
 {
 	// 0 ~ 10 사이값.. 먼저 총 갯수를 센다..
-	int i, iTotalCount, iFirstIndex, iLastIndex;
-	for(i = 0; i < 40; i++)
+	int iTotalCount, iFirstIndex, iLastIndex;
+	for(int i = 0; i < 40; i++)
 	{
 		if (m_sStr[i].empty())
 			break;
@@ -177,7 +177,7 @@ void CUITradeList::SetTopLine(int iTopLine)		// 맨 윗줄을 지정해준다.
 			iFirstIndex = iLastIndex - 9;
 	}
 
-	for (i = 0; i < 9; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		if(NULL == m_pStr_List[i]) continue;
 		m_pStr_List[i]->SetString(m_sStr[iFirstIndex+i]);

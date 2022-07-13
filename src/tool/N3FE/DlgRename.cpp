@@ -138,7 +138,7 @@ void CDlgRename::OnBConvert()
 		nSeq++;
 	}
 
-	for(i = 1023; i >= 0; i--)
+	for(int i = 1023; i >= 0; i--)
 	{
 		index = nIndices[i];
 		if(index < 0) continue;

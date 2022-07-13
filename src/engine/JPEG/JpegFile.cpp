@@ -1433,24 +1433,24 @@ WORD FAR CJpegFile::SaveDIB(HDIB hDib, LPSTR lpFileName)
 	
 	// Encrypt Data
 	BYTE *encrypt_data;
-	DWORD encrypt_len, i, j;
+	DWORD encrypt_len, j;
 	BYTE random_byte[4];
 
 	// Generate Random Byte.
 	srand((unsigned)time( NULL ));
-	for(i = 0; i < 4; i++) random_byte[i] = rand() % 0x100;
+	for(int i = 0; i < 4; i++) random_byte[i] = rand() % 0x100;
 
 	encrypt_len = sizeof(BITMAPFILEHEADER)+dwDIBSize+4;
 	encrypt_data = new BYTE[encrypt_len];
-	for(i = 0, j = 0; i < 4; i++, j++)
+	for(int i = 0, j = 0; i < 4; i++, j++)
 	{
 		encrypt_data[j] = Encrypt(random_byte[i]);
 	}
-	for(i = 0; i < sizeof(BITMAPFILEHEADER); i++, j++)
+	for(int i = 0; i < sizeof(BITMAPFILEHEADER); i++, j++)
 	{
 		encrypt_data[j] = Encrypt(*((BYTE *)(&bmfHdr)+i));
 	}
-	for(i = 0; i < dwDIBSize; i++, j++)
+	for(int i = 0; i < dwDIBSize; i++, j++)
 	{
 		encrypt_data[j] = Encrypt(*((BYTE *)lpBI + i));
 	}
@@ -1812,7 +1812,7 @@ BOOL CJpegFile::EncryptJPEG(HANDLE hDib,			//Handle to DIB
 	HANDLE fh;
 	DWORD loSize, hiSize;
 	BYTE *data_byte;
-	DWORD encrypt_len, i;
+	DWORD encrypt_len;
 
 	// JPEG 파일 읽어오기
 	fh = CreateFile(csJpeg.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -1828,7 +1828,7 @@ BOOL CJpegFile::EncryptJPEG(HANDLE hDib,			//Handle to DIB
 	data_byte = new BYTE[loSize+8];
 
 	srand((unsigned)time( NULL ));
-	for(i = 0; i < 4; i++) data_byte[i] = rand() % 0x100;
+	for(int i = 0; i < 4; i++) data_byte[i] = rand() % 0x100;
 
 	data_byte[4] = 'K';
 	data_byte[5] = 'S';
@@ -1841,7 +1841,7 @@ BOOL CJpegFile::EncryptJPEG(HANDLE hDib,			//Handle to DIB
 	m_r = 1124;
 	// JPEG 파일 Encoding
 	encrypt_len = loSize+8;
-	for(i = 0; i < encrypt_len; i++)
+	for(int i = 0; i < encrypt_len; i++)
 	{
 		data_byte[i] = Encrypt(data_byte[i]);
 	}
@@ -1870,7 +1870,7 @@ BOOL CJpegFile::DecryptJPEG(std::string csJpeg)
 	HANDLE hSrc, hDst;
 	BYTE *dst_data, *src_data;
 	DWORD dst_len, src_len, src_hlen;
-	DWORD result_len, i, j;
+	DWORD result_len;
 
 	int rfv = csJpeg.rfind('\\');
 	szDstpath = csJpeg;
@@ -1911,13 +1911,13 @@ BOOL CJpegFile::DecryptJPEG(std::string csJpeg)
 	ReadFile(hSrc, (LPVOID)src_data, src_len, &result_len, NULL);
 
 	m_r = 1124;
-	for(i = 0; i < 4; i++)
+	for(int i = 0; i < 4; i++)
 	{
 		Decrypt(src_data[i]);
 	}
 
 	BYTE magic[4];
-	for(i = 4; i < 8; i++)
+	for(int i = 4; i < 8; i++)
 	{
 		magic[i-4] = Decrypt(src_data[i]);
 	}
@@ -1935,7 +1935,7 @@ BOOL CJpegFile::DecryptJPEG(std::string csJpeg)
 		return FALSE;
 	}
 
-	for(j = 0; i < src_len; i++, j++)
+	for(int i = 8, j = 0; i < src_len; i++, j++)
 	{
 		dst_data[j] = Decrypt(src_data[i]);
 	}
@@ -1959,7 +1959,7 @@ BOOL CJpegFile::SaveFromDecryptToJpeg(std::string csKsc, std::string csJpeg)
 	HANDLE hSrc, hDst;
 	BYTE *dst_data, *src_data;
 	DWORD dst_len, src_len, src_hlen;
-	DWORD result_len, i, j;
+	DWORD result_len;
 
 	hSrc = CreateFile((LPCTSTR)csKsc.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if(hSrc == INVALID_HANDLE_VALUE)
@@ -1988,11 +1988,11 @@ BOOL CJpegFile::SaveFromDecryptToJpeg(std::string csKsc, std::string csJpeg)
 	ReadFile(hSrc, (LPVOID)src_data, src_len, &result_len, NULL);
 
 	m_r = 1124;
-	for(i = 0; i < 8; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		Decrypt(src_data[i]);
 	}
-	for(j = 0; i < src_len; i++, j++)
+	for(int i = 8, j = 0; i < src_len; i++, j++)
 	{
 		dst_data[j] = Decrypt(src_data[i]);
 	}

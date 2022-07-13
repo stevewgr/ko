@@ -86,14 +86,13 @@ bool CN3River2::Load(HANDLE hFile)
 			}
 		}
 
-		int j,k;
 		__VertexRiver* ptVtx = pInfo->pVertices;
 		float StX,EnX,StZ,EnZ;
 		StX = ptVtx[0].x,EnX = ptVtx[4].x;
 		StZ = ptVtx[0].z,EnZ = ptVtx[pInfo->iVC/4].z;
-		for (j=0; j<pInfo->iVC/4; j++)
+		for (int j=0; j<pInfo->iVC/4; j++)
 		{
-			for (k=0; k<4; k++)
+			for (int k=0; k<4; k++)
 			{
 				if(StX>ptVtx->x) StX = ptVtx->x;
 				if(EnX<ptVtx->x) EnX = ptVtx->x;
@@ -267,7 +266,7 @@ void CN3River2::Tick()
 		}
 	}
 	
-//	for (i=0;i<m_iRiverCount;i++)
+//	for (int i=0;i<m_iRiverCount;i++)
 //	{
 //		pInfo = m_pRiverInfo+i;
 //		for (int j=0;j<pInfo->iVC;j++)
