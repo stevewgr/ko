@@ -80,7 +80,6 @@ void CLightMgr::Release()
 
 void CLightMgr::Tick()
 {
-	int i;
 	//거리에 따라 추려내고...
 	int NumSlotEmpty = 0;
 	float LimitLeft, LimitRight, LimitUp, LimitDown;
@@ -90,7 +89,7 @@ void CLightMgr::Tick()
 	LimitDown = CN3Base::s_CameraData.vEye.z - LIGHT_VALIDRANGE;
 
 	__Vector3 vPosTmp;
-	for(i=LGT_ADDITIONAL0;i<LGT_MAX;i++)
+	for(int i=LGT_ADDITIONAL0;i<LGT_MAX;i++)
 	{
 		if(!m_pActiveLight[i])
 		{
@@ -119,7 +118,7 @@ void CLightMgr::Tick()
 		vPosTmp = pLgt->Pos();
 		if(vPosTmp.x > LimitLeft && vPosTmp.x < LimitRight && vPosTmp.z > LimitDown && vPosTmp.z < LimitUp)
 		{
-			for(i=LGT_ADDITIONAL0;i<LGT_MAX;i++)
+			for(int i=LGT_ADDITIONAL0;i<LGT_MAX;i++)
 			{
 				if(!m_pActiveLight[i])
 				{
@@ -136,7 +135,7 @@ void CLightMgr::Tick()
 	}
 
 	//tick돌려라..
-	for(i=0;i<LGT_MAX;i++)
+	for(int i=0;i<LGT_MAX;i++)
 	{
 		if(m_pActiveLight[i])
 		{

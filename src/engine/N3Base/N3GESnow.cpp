@@ -63,7 +63,6 @@ void CN3GESnow::Tick()
 	}
 	if(iActiveCount <= 0) return;
 
-	int i;
 	__VertexXyzT1* pVertices;
 	HRESULT hr = m_pVB->Lock(0, 0, (VOID**)&pVertices, D3DLOCK_NOSYSLOCK);
 
@@ -77,7 +76,7 @@ void CN3GESnow::Tick()
 
 	static const float sqrt3 = sqrtf(3.0f);
 
-	for (i=0; i<iActiveCount; ++i)
+	for (int i=0; i<iActiveCount; ++i)
 	{
 		// 위치 결정하기
 		__VertexXyzT1* pV1 = pVertices+i*3+0;
@@ -233,8 +232,7 @@ void CN3GESnow::Create(float fDensity, float fWidth, float fHeight, float fSnowS
 	m_pSnowParticle = new __SnowParticle[iSnowCount];
 
 	const float sqrt3 = sqrtf(3.0f);
-	int i;
-	for (i=0; i<iSnowCount; ++i)
+	for (int i=0; i<iSnowCount; ++i)
 	{
 		m_pSnowParticle[i].vPos.Set(fWidth*(rand()%10000-5000)/10000.f,
 									fHeight*(rand()%10000-5000)/10000.f,

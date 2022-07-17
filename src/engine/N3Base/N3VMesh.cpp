@@ -296,7 +296,7 @@ bool CN3VMesh::CheckCollision(const __Matrix44& MtxWorld, const __Vector3& v0, c
 	//두점이 충돌메시 안에 있는 경우..by lynus..
 	__Vector3 tmpNormal;
 	float d;
-	for(i = 0; i < nFC; i++)
+	for(int i = 0; i < nFC; i++)
 	{
 		if(m_nIC > 0) { nCI0 = m_pwIndices[i*3+0]; nCI1 = m_pwIndices[i*3+1]; nCI2 = m_pwIndices[i*3+2]; }
 		else { nCI0 = i*3; nCI1 = i*3+1; nCI2 = i*3+2; }

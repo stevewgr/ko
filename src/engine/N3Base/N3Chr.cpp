@@ -1057,10 +1057,10 @@ CN3Chr::~CN3Chr()
 	m_Parts.clear();
 
 	iPC = m_Plugs.size();
-	for(i = 0; i < iPC; i++) delete m_Plugs[i];
+	for(int i = 0; i < iPC; i++) delete m_Plugs[i];
 	m_Plugs.clear();
 
-	for(i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
+	for(int i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
 	m_vTraces.clear();
 
 	// Animation Control
@@ -1087,10 +1087,10 @@ void CN3Chr::Release()
 	m_Parts.clear();
 
 	iPC = m_Plugs.size();
-	for(i = 0; i < iPC; i++) delete m_Plugs[i];
+	for(int i = 0; i < iPC; i++) delete m_Plugs[i];
 	m_Plugs.clear();
 
-	for(i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
+	for(int i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
 	m_vTraces.clear();
 
 //	s_MngSkin.Delete(m_pSkinCollision);
@@ -1099,7 +1099,7 @@ void CN3Chr::Release()
 	// Animation Control
 	s_MngAniCtrl.Delete(&m_pAniCtrlRef);
 
-	for(i = 0; i < MAX_CHR_ANI_PART; i++)
+	for(int i = 0; i < MAX_CHR_ANI_PART; i++)
 	{
 		m_nJointPartStarts[i] = -1; // 조인트의 일부분이 따로 에니메이션 되야 한다면.. 조인트 인덱스 시작 번호
 		m_nJointPartEnds[i] = -1; // 조인트의 일부분이 따로 에니메이션 되야 한다면.. 조인트 인덱스 끝 번호
@@ -1152,7 +1152,7 @@ bool CN3Chr::Load(HANDLE hFile)
 	m_Plugs.clear();
 	ReadFile(hFile, &iPC, 4, &dwRWC, NULL);
 	this->PlugAlloc(iPC);
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		nL = 0;
 		ReadFile(hFile, &nL, 4, &dwRWC, NULL);
@@ -1300,7 +1300,7 @@ bool CN3Chr::Save(HANDLE hFile)
 	
 	iPC = m_Plugs.size();
 	WriteFile(hFile, &iPC, 4, &dwRWC, NULL);
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		nL = m_Plugs[i]->FileName().size();
 		if(nL <= 0)
@@ -1399,7 +1399,7 @@ void CN3Chr::Tick(float fFrm)
 	else
 	{
 		int iJC = m_JointRefs.size();
-		for(i = 0; i < iJC; i++) // 걍 단순히 조인트만 Tick 해주고 나간다..
+		for(int i = 0; i < iJC; i++) // 걍 단순히 조인트만 Tick 해주고 나간다..
 		{
 			m_JointRefs[i]->TickAnimationKey(fFrm);
 			m_JointRefs[i]->ReCalcMatrix();
@@ -1669,7 +1669,7 @@ void CN3Chr::RemakePlugTracePolygons()
 
 	int iPC = m_Plugs.size();
 	m_vTraces.assign(iPC, NULL);
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		int iTS = m_Plugs[i]->m_nTraceStep;
 		if(iTS <= 0) continue;
@@ -1726,7 +1726,7 @@ void CN3Chr::Render()
 	// Plug - 붙이는 부분 Rendering
 	CN3CPlug* pPlug = NULL;
 	iPC = m_Plugs.size();
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		pPlug = m_Plugs[i];
 		
@@ -1787,9 +1787,6 @@ void CN3Chr::BuildMesh()
 	__ASSERT(m_pRootJointRef, "Joint pointer is NULL!");
 
 	float fWeight = 0;
-	int nJIndex = 0, nAffect = 0;
-
-	int i = 0, j = 0, k = 0, nVC = 0;
 	CN3IMesh* pIMesh = NULL;
 	CN3Skin* pSkin = NULL;
 
@@ -1797,7 +1794,7 @@ void CN3Chr::BuildMesh()
 	__Matrix44* pMtxJIs = &(m_MtxInverses[0]);
 
 	int iPC = m_Parts.size();
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		pSkin = m_Parts[i]->Skin(m_nLOD);
 		if(NULL == pSkin) continue;
@@ -1806,27 +1803,27 @@ void CN3Chr::BuildMesh()
 		__VertexSkinned* pVSrc = pSkin->SkinVertices();
 		if(NULL == pVDest || NULL == pVSrc) continue;
 
-		nVC = pSkin->VertexCount();
+		int nVC = pSkin->VertexCount();
 		__Vector3 vFinal;
 		int nAffect = 0;
 		float* pfWeights = NULL;
-		for(j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
+		for(int j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
 		{
 
 			nAffect = pVSrc[j].nAffect;
 			if(1 == nAffect)
 			{
 				// 단일 뼈대...
-				nJIndex = pVSrc[j].pnJoints[0];
+				int nJIndex = pVSrc[j].pnJoints[0];
 				pVDest[j] = (pVSrc[j].vOrigin * pMtxJIs[nJIndex]) * pMtxJs[nJIndex];
 			}
 			else if(nAffect > 1) 
 			{
 				vFinal.Zero();
 				pfWeights = pVSrc[j].pfWeights;
-				for(k = 0; k < nAffect; k++)
+				for(int k = 0; k < nAffect; k++)
 				{
-					nJIndex = pVSrc[j].pnJoints[k];
+					int nJIndex = pVSrc[j].pnJoints[k];
 					vFinal += ((pVSrc[j].vOrigin * pMtxJIs[nJIndex]) * pMtxJs[nJIndex]) * pfWeights[k];
 				}
 				pVDest[j] = vFinal;
@@ -1841,7 +1838,7 @@ void CN3Chr::BuildMesh()
 		__Vector3* pVDest = m_pMeshCollision->Vertices();
 		__VertexSkinned* pVSrc = m_pSkinCollision->Vertices();
 
-		nVC = m_pMeshCollision->VertexCount();
+		int nVC = m_pMeshCollision->VertexCount();
 		int nSVC = m_pSkinCollision->VertexCount();
 		if(nSVC != nVC)
 		{
@@ -1851,7 +1848,7 @@ void CN3Chr::BuildMesh()
 		{
 			int nAffect = 0;
 			float* pfWeights = NULL;
-			for(j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
+			for(int j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
 			{
 				nAffect = pVSrc[j].nAffect;
 				if(1 == nAffect)
@@ -1864,7 +1861,7 @@ void CN3Chr::BuildMesh()
 				{
 					pVDest[j].Zero();
 					pfWeights = pVSrc[j].pfWeights;
-					for(k = 0; k < nAffect; k++)
+					for(int k = 0; k < nAffect; k++)
 					{
 						if(pfWeights[k] <= 0) continue;
 
@@ -1886,9 +1883,6 @@ void CN3Chr::BuildMesh(int nLOD)
 	__ASSERT(m_pRootJointRef, "Joint pointer is NULL!");
 
 	float fWeight = 0;
-	int nJIndex = 0, nAffect = 0;
-
-	int i = 0, j = 0, k = 0, nVC = 0;
 	CN3IMesh* pIMesh = NULL;
 	CN3Skin* pSkin = NULL;
 
@@ -1896,7 +1890,7 @@ void CN3Chr::BuildMesh(int nLOD)
 	__Matrix44* pMtxJIs = &(m_MtxInverses[0]);
 
 	int iPC = m_Parts.size();
-	for(i = 0; i < iPC; i++)
+	for(int i = 0; i < iPC; i++)
 	{
 		pSkin = m_Parts[i]->Skin(nLOD);
 		if(NULL == pSkin) continue;
@@ -1905,27 +1899,27 @@ void CN3Chr::BuildMesh(int nLOD)
 		__VertexSkinned* pVSrc = pSkin->SkinVertices();
 		if(NULL == pVDest || NULL == pVSrc) continue;
 
-		nVC = pSkin->VertexCount();
+		int nVC = pSkin->VertexCount();
 		__Vector3 vFinal;
 		int nAffect = 0;
 		float* pfWeights = NULL;
-		for(j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
+		for(int j = 0; j < nVC; j++) // j < m_nBoneVertices 와 같다..
 		{
 
 			nAffect = pVSrc[j].nAffect;
 			if(1 == nAffect)
 			{
 				// 단일 뼈대...
-				nJIndex = pVSrc[j].pnJoints[0];
+				int nJIndex = pVSrc[j].pnJoints[0];
 				pVDest[j] = (pVSrc[j].vOrigin * pMtxJIs[nJIndex]) * pMtxJs[nJIndex];
 			}
 			else if(nAffect > 1) 
 			{
 				vFinal.Zero();
 				pfWeights = pVSrc[j].pfWeights;
-				for(k = 0; k < nAffect; k++)
+				for(int k = 0; k < nAffect; k++)
 				{
-					nJIndex = pVSrc[j].pnJoints[k];
+					int nJIndex = pVSrc[j].pnJoints[k];
 					vFinal += ((pVSrc[j].vOrigin * pMtxJIs[nJIndex]) * pMtxJs[nJIndex]) * pfWeights[k];
 				}
 				pVDest[j] = vFinal;
@@ -1989,7 +1983,7 @@ void CN3Chr::PartAlloc(int iCount)
 	if(iCount > 0) 
 	{
 		m_Parts.assign(iCount, NULL);
-		for(i = 0; i < iCount; i++) m_Parts[i] = new CN3CPart();
+		for(int i = 0; i < iCount; i++) m_Parts[i] = new CN3CPart();
 	}
 }
 
@@ -2048,7 +2042,7 @@ void CN3Chr::PlugAlloc(int iCount)
 	if(iCount > 0) 
 	{
 		m_Plugs.assign(iCount, NULL);
-		for(i = 0; i < iCount; i++) m_Plugs[i] = new CN3CPlug();
+		for(int i = 0; i < iCount; i++) m_Plugs[i] = new CN3CPlug();
 	}
 }
 

@@ -73,7 +73,7 @@ static bool g_bItemClassGroup[26][26] = {	// [아이템][플레이어]
 CUIInventory::CUIInventory()
 {
 	for( int i = 0; i < ITEM_SLOT_COUNT; i++ )	m_pMySlot[i] = NULL;
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )	m_pMyInvWnd[i] = NULL;
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )	m_pMyInvWnd[i] = NULL;
 
 	m_pUITooltipDlg = NULL;
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer = false;
@@ -107,7 +107,7 @@ void CUIInventory::Release()
 		}
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( m_pMyInvWnd[i] != NULL )
 		{
@@ -151,7 +151,7 @@ void CUIInventory::ReleaseItem()
 		}
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( m_pMyInvWnd[i] != NULL )
 		{
@@ -434,7 +434,7 @@ void CUIInventory::InitIconUpdate()
 		}
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( m_pMyInvWnd[i] != NULL )
 		{
@@ -464,7 +464,7 @@ __IconItemSkill* CUIInventory::GetHighlightIconItem(CN3UIIcon* pUIIcon)
 			return m_pMySlot[i];
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( (m_pMyInvWnd[i] != NULL) && (m_pMyInvWnd[i]->pUIIcon == pUIIcon) )
 			return m_pMyInvWnd[i];
@@ -480,7 +480,7 @@ e_UIWND_DISTRICT CUIInventory::GetWndDistrict(__IconItemSkill* spItem)
 			return UIWND_DISTRICT_INVENTORY_SLOT;
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( (m_pMyInvWnd[i] != NULL) && (m_pMyInvWnd[i] == spItem) )
 			return UIWND_DISTRICT_INVENTORY_INV;
@@ -491,12 +491,10 @@ e_UIWND_DISTRICT CUIInventory::GetWndDistrict(__IconItemSkill* spItem)
 int CUIInventory::GetItemiOrder(__IconItemSkill* spItem, e_UIWND_DISTRICT eWndDist)
 {
 	int iReturn = -1;
-	int i;
-
 	switch ( eWndDist )
 	{
 		case UIWND_DISTRICT_INVENTORY_SLOT:
-			for( i = 0; i < ITEM_SLOT_COUNT; i++ )
+			for( int i = 0; i < ITEM_SLOT_COUNT; i++ )
 			{
 				if ( (m_pMySlot[i] != NULL) && (m_pMySlot[i] == spItem) )
 					return i;
@@ -504,7 +502,7 @@ int CUIInventory::GetItemiOrder(__IconItemSkill* spItem, e_UIWND_DISTRICT eWndDi
 			break;
 
 		case UIWND_DISTRICT_INVENTORY_INV:
-			for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+			for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 			{
 				if ( (m_pMyInvWnd[i] != NULL) && (m_pMyInvWnd[i] == spItem) )
 					return i;
@@ -2366,8 +2364,7 @@ void CUIInventory::ReceiveResultFromServer(int iResult, int iUserGold)
 
 int CUIInventory::GetCountInInvByID(int iID)
 {
-	int i;
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if ( (m_pMyInvWnd[i] != NULL) && (m_pMyInvWnd[i]->pItemBasic->dwID == (iID/1000*1000)) &&
 				(m_pMyInvWnd[i]->pItemExt->dwID == (iID%1000)) )
@@ -2858,7 +2855,7 @@ int CUIInventory::GetIndexItemCount(DWORD dwIndex)
 		}
 	}
 
-	for( i = 0; i < MAX_ITEM_INVENTORY; i++ )
+	for( int i = 0; i < MAX_ITEM_INVENTORY; i++ )
 	{
 		if(m_pMyInvWnd[i] && m_pMyInvWnd[i]->pItemBasic)
 		{

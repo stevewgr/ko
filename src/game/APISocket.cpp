@@ -314,7 +314,7 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, DWORD dwPort)
 	m_bConnected = TRUE;
 	
 #ifdef _DEBUG
-	for(i = 0; i < 255; i++)
+	for(int i = 0; i < 255; i++)
 	{
 		memset(m_Statistics_Send_Sum, 0, sizeof(m_Statistics_Send_Sum));
 		memset(m_Statistics_Recv_Sum, 0, sizeof(m_Statistics_Recv_Sum));

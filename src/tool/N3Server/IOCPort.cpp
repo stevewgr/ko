@@ -265,7 +265,7 @@ void CIOCPort::DeleteAllArray()
 	delete m_SockArray;
 	m_SockArray = NULL;
 
-	for ( i = 0; i < m_SocketArraySize; i++ ) {
+	for ( int i = 0; i < m_SocketArraySize; i++ ) {
 		if ( m_SockArrayInActive[i] != NULL ) {
 			delete m_SockArrayInActive[i];
 			m_SockArrayInActive[i] = NULL;
@@ -287,12 +287,12 @@ void CIOCPort::Init(int socksize, int workernum)
 	};
 
 	m_SockArrayInActive = new CIOCPSocket2* [socksize];
-	for(i = 0; i<socksize; i++ ) {
+	for(int i = 0; i<socksize; i++ ) {
 		m_SockArrayInActive[i] = NULL;
 	};
 
 	m_SidArray.RemoveAll();
-	for( i = 0; i<socksize; i++)
+	for(int i = 0; i<socksize; i++)
 		m_SidArray.Add( i );
 
 	InitializeCriticalSection( &m_criticalSID );

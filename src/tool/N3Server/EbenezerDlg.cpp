@@ -154,7 +154,7 @@ BOOL CEbenezerDlg::OnInitDialog()
 
 	SetTimer( 1, 5000, NULL );
 
-	for(i=0; i<5; i++) {
+	for(int i=0; i<5; i++) {
 		m_pInitPos[i].initx = 640.0f + 5*i;
 		m_pInitPos[i].initz = 590.0f + 5*i;
 	}

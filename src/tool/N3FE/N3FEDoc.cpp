@@ -133,7 +133,7 @@ BOOL CN3FEDoc::OnOpenDocument(LPCTSTR lpszPathName)
 		m_EffectMgr.m_BundlesSrc.push_back(pEB);
 	}
 
-	for(i = 0; i < nPC; i++)
+	for(int i = 0; i < nPC; i++)
 	{
 		CString szPartFN;
 		szPartFN.Format("%s%s%s%.3d.N3FXPart", szDrive, szDir, szFName, i);
@@ -217,7 +217,7 @@ BOOL CN3FEDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	}
 
 	CString szPartsFN, szPS;
-	for(i = 0; i < m_szPartScripts.GetSize(); i++)
+	for(int i = 0; i < m_szPartScripts.GetSize(); i++)
 	{
 		szPartsFN.Format("%s%s%s%.3d.N3FXPart", szDrive, szDir, szFName, i);
 		if(file.Open(szPartsFN, CFile::modeWrite | CFile::modeCreate, NULL))
